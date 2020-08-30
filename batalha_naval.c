@@ -23,10 +23,10 @@
 
 int coluna_inicial_barco(char mapa[MAXLINHAS][MAXCOLUNAS])
 {
-  int i = 1, j;
+  int j;
   for (j = 1; j <= MAXCOLUNAS; j++)
   {
-    if ( mapa [i][j] == BARCO)
+    if (mapa [1][j] == BARCO)
     {
       return j;
     }
@@ -44,6 +44,7 @@ void escreva_mapa_tela(int no_linhas, int no_colunas, char mapa[MAXLINHAS][MAXCO
 
   for (cont_col = 1; cont_col <= no_colunas; cont_col++)
   {
+      /* números maiores que 10 ocupam mais espaço na impressão */
       if (cont_col < 10) printf ("   %d", cont_col);
       else printf ("  %d", cont_col);
   }
@@ -54,11 +55,12 @@ void escreva_mapa_tela(int no_linhas, int no_colunas, char mapa[MAXLINHAS][MAXCO
 
   for ( i = 1; i <= no_linhas; i++)
   {
+    /* números maiores que 10 ocupam mais espaço na impressão */
     if (i < 10) printf ("%d |", i);
     else printf ("%d|", i);
-    for ( j = 1; j <= no_colunas; j++)
+    for (j = 1; j <= no_colunas; j++)
     {
-      if ( mapa [i][j] == BARCO || mapa [i][j] == RASTRO || mapa [i][j] == AGUA || mapa [i][j] == EXPLOSAO || mapa [i][j] == 's' ||
+      if (mapa [i][j] == BARCO || mapa [i][j] == RASTRO || mapa [i][j] == AGUA || mapa [i][j] == EXPLOSAO || mapa [i][j] == 's' ||
           mapa [i][j] == 'd' || mapa [i][j] == 'c' || mapa [i][j] == 'p' || mapa [i][j] == 'h' || mapa[i][j] == 'X') printf ( " %c |" , mapa [i][j]);
       else printf ("   |");
     }
@@ -188,7 +190,7 @@ void leia_mapa(int *no_linhas, int *no_colunas, char mapa[MAXLINHAS][MAXCOLUNAS]
   printf("MSG do QG: forneca nome do arquivo que contem o mapa: ");
   scanf("%s", nome_arquivo);
 
-  arq = fopen(nome_arquivo,"r");
+  arq = fopen(nome_arquivo, "r");
   if (arq == NULL)
     {
       printf("MSG do QG: erro na abertura do arquivo %s.\n", nome_arquivo);
@@ -255,7 +257,7 @@ void escreva_mapa_arquivo(int no_linhas, int no_colunas, char mapa[MAXLINHAS][MA
   for (cont_col = 1; cont_col <= no_colunas; cont_col++) fprintf (arq, "+---");
   fprintf (arq, "+\n");
 
-  for ( i = 1; i <= no_linhas; i++)
+  for (i = 1; i <= no_linhas; i++)
   {
     fprintf (arq, "%d |", i);
 
@@ -371,7 +373,7 @@ int main()
             /* bomba na água ou em embarcações afundadas */
         {
            m[i_exp][j_exp] = AGUA;
-           printf ("MSG do QG: posicao (%d, %d), CHUA ... AGUA\n", i_exp, j_exp);
+           printf ("MSG do QG: posicao (%d, %d), CHUA... AGUA\n", i_exp, j_exp);
         }
 
         if (m[i_exp][j_exp] == BARCO) /* bomba no barco */
@@ -416,7 +418,7 @@ int main()
 
   if (encalhou < 3 && atingiu == 0)
   {
-      printf ("MSG do QG: PARABENS!! Voce chegou a (%d, %d).\n", i_atual, j_atual);
+      printf ("MSG do QG: PARABENS!!! Voce chegou a (%d, %d).\n", i_atual, j_atual);
       printf ("MSG do QG: VOCE COMPLETOU A SUA MISSAO COM PICARDIA.\n");
   }
   return 0;
